@@ -41,10 +41,10 @@ describe('Point', function () {
         {a: new ph.point.Point(0, 0), b: new ph.point.Point(10, 0), expected: new ph.point.Point(5, 0), name: "only X"},
         {a: new ph.point.Point(0, 0), b: new ph.point.Point(0, 10), expected: new ph.point.Point(0, 5), name: "only Y"},
         {a: new ph.point.Point(10, 10), b: new ph.point.Point(10, 10), expected: new ph.point.Point(10, 10), name: "same point"},
-        {a: new ph.point.Point(0, 0), b: new ph.point.Point(3, 4), expected: new ph.point.Point(1.5, 2), name: "towards northwest"},
-        {a: new ph.point.Point(0, 0), b: new ph.point.Point(-3, 4), expected: new ph.point.Point(-1.5, 2), name: "towards northeast"},
-        {a: new ph.point.Point(0, 0), b: new ph.point.Point(-3, -4), expected: new ph.point.Point(-1.5, -2), name: "towards southeast"},
-        {a: new ph.point.Point(0, 0), b: new ph.point.Point(3, -4), expected: new ph.point.Point(1.5, -2), name: "towards southwest"},
+        {a: new ph.point.Point(0, 0), b: new ph.point.Point(300, 400), expected: new ph.point.Point(150, 200), name: "towards northwest"},
+        {a: new ph.point.Point(0, 0), b: new ph.point.Point(-300, 400), expected: new ph.point.Point(-150, 200), name: "towards northeast"},
+        {a: new ph.point.Point(0, 0), b: new ph.point.Point(-300, -400), expected: new ph.point.Point(-150, -200), name: "towards southeast"},
+        {a: new ph.point.Point(0, 0), b: new ph.point.Point(300, -400), expected: new ph.point.Point(150, -200), name: "towards southwest"},
       ];
 
       testMap.forEach(function (testCase) {
@@ -54,10 +54,12 @@ describe('Point', function () {
         //the same value should be found moving all X coords or Y coords
         testCase.a.x += 10.23;
         testCase.b.x += 10.23;
+        testCase.expected.x += 10;
         assert.strictEqual(testCase.expected.toString(), testCase.b.middlePointTo(testCase.a).toString(), `Case ${testCase.name} failed (moving X)`);
 
         testCase.a.y += 10.23;
         testCase.b.y += 10.23;
+        testCase.expected.y += 10;
         assert.strictEqual(testCase.expected.toString(), testCase.b.middlePointTo(testCase.a).toString(), `Case ${testCase.name} failed (moving y)`)
 
       });

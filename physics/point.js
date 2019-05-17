@@ -45,6 +45,10 @@ class Point {
       Math.round(Math.min(this.y, target.y) + y)
     );
   }
+
+  toString() {
+    return JSON.stringify(this);
+  }
 }
 
 
