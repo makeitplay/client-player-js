@@ -62,12 +62,12 @@ class Vector {
   }
 
   copy() {
-    return new Vector(this.x ,this.y);
+    return new Vector(this.x, this.y);
   }
 
   normalize() {
     const len = this.length();
-    if (len > 0 ) {
+    if (len > 0) {
       this.scale(100 / len)
     }
     return this;
@@ -86,6 +86,17 @@ class Vector {
   cos() {
     return this.x / this.length()
   }
+
+  // Angle returns the angle of the vector with the X axis
+  angle() {
+    return Math.atan2(this.y, this.x)
+  }
+
+  angleDegrees() {
+
+    return this.angle() * 180 / Math.PI
+  }
+
 
   toString() {
     return JSON.stringify(this);

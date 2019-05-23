@@ -140,7 +140,7 @@ describe('Vector', function () {
         });
       });
 
-      it('should retrieve angle', function () {
+      it('should retrieve sin and cos', function () {
 
         const testMap = [
           {original: ph.vector.NORTH, expected_cos: 0, expected_sin: 1, name: "north"},
@@ -148,10 +148,10 @@ describe('Vector', function () {
           {original: ph.vector.EAST, expected_cos: 1, expected_sin: 0, name: "east"},
           {original: ph.vector.WEST, expected_cos: -1, expected_sin: 0, name: "west"},
 
-          {original: new ph.vector.Vector(1, 1), expected_cos: 0.71, expected_sin: 0.71, name: "north"},
-          {original: new ph.vector.Vector(-1, 1), expected_cos: -0.71, expected_sin: 0.71, name: "south"},
-          {original: new ph.vector.Vector(-1, -1), expected_cos: -0.71, expected_sin: -0.71, name: "east"},
-          {original: new ph.vector.Vector(1, -1), expected_cos: 0.71, expected_sin: -0.71, name: "west"},
+          {original: new ph.vector.Vector(1, 1), expected_cos: 0.71, expected_sin: 0.71, name: "northeast"},
+          {original: new ph.vector.Vector(-1, 1), expected_cos: -0.71, expected_sin: 0.71, name: "northwest"},
+          {original: new ph.vector.Vector(-1, -1), expected_cos: -0.71, expected_sin: -0.71, name: "southwest"},
+          {original: new ph.vector.Vector(1, -1), expected_cos: 0.71, expected_sin: -0.71, name: "southeast"},
 
 
         ];
@@ -159,6 +159,28 @@ describe('Vector', function () {
           assert.ok(testCase.original.isValid(), `Case ${testCase.name} is not valid!`);
           assert.strictEqual(testCase.expected_sin.toFixed(2),testCase.original.sin().toFixed(2), `Case '${testCase.name}' failed to sine`);
           assert.strictEqual(testCase.expected_cos.toFixed(2),testCase.original.cos().toFixed(2), `Case '${testCase.name}' failed to cosine`);
+
+        });
+      });
+
+      it('should retrieve angle', function () {
+
+        const testMap = [
+          {original: ph.vector.NORTH, expected: 90, name: "north"},
+          {original: ph.vector.SOUTH, expected: -90, name: "south"},
+          {original: ph.vector.EAST, expected: 0, name: "east"},
+          {original: ph.vector.WEST, expected: 180, name: "west"},
+
+          {original: new ph.vector.Vector(1, 1), expected: 45, name: "northeast"},
+          {original: new ph.vector.Vector(-1, 1), expected: 135, name: "northwest"},
+          {original: new ph.vector.Vector(-1, -1), expected: -135, name: "southwest"},
+          {original: new ph.vector.Vector(1, -1), expected: -45, name: "southeast"},
+
+
+        ];
+        testMap.forEach(function (testCase) {
+          assert.ok(testCase.original.isValid(), `Case ${testCase.name} is not valid!`);
+          assert.strictEqual(testCase.expected.toFixed(2), testCase.original.angleDegrees().toFixed(2), `Case '${testCase.name}' failed`);
 
         });
       });
