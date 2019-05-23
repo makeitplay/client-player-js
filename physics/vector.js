@@ -65,6 +65,28 @@ class Vector {
     return new Vector(this.x ,this.y);
   }
 
+  normalize() {
+    const len = this.length();
+    if (len > 0 ) {
+      this.scale(100 / len)
+    }
+    return this;
+  }
+
+  scale(size) {
+    this.x *= size;
+    this.y *= size;
+    return this;
+  }
+
+  sin() {
+    return this.y / this.length()
+  }
+
+  cos() {
+    return this.x / this.length()
+  }
+
   toString() {
     return JSON.stringify(this);
   }
