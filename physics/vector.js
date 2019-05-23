@@ -97,6 +97,19 @@ class Vector {
     return this.angle() * 180 / Math.PI
   }
 
+  oppositeAngle() {
+    return Math.acos(this.cos())
+  }
+
+  addAngleDegree(degree) {
+    let newAngle = this.angleDegrees() + degree;
+    newAngle *= Math.PI / 180;
+
+    const length = this.length();
+    this.x = length * Math.cos(newAngle);
+    this.y = length * Math.sin(newAngle);
+    return this
+  }
 
   toString() {
     return JSON.stringify(this);

@@ -185,6 +185,29 @@ describe('Vector', function () {
         });
       });
 
+
+      it('should add angle', function () {
+
+        const testMap = [
+          {original: ph.vector.NORTH, angle: 10, expected: 100, name: "north"},
+          {original: ph.vector.SOUTH, angle: 10, expected: -80, name: "south"},
+          {original: ph.vector.EAST, angle: 10, expected: 10, name: "east"},
+          {original: ph.vector.WEST, angle: 10, expected: -170, name: "west"},
+
+          {original: new ph.vector.Vector(1, 1), angle: 10, expected: 55, name: "northeast"},
+          {original: new ph.vector.Vector(-1, 1), angle: -10, expected: 125, name: "northwest"},
+          {original: new ph.vector.Vector(-1, -1), angle: 10, expected: -125, name: "southwest"},
+          {original: new ph.vector.Vector(1, -1), angle: 0, expected: -45, name: "southeast"},
+
+
+        ];
+        testMap.forEach(function (testCase) {
+          assert.ok(testCase.original.isValid(), `Case ${testCase.name} is not valid!`);
+          assert.strictEqual(testCase.expected.toFixed(2), testCase.original.addAngleDegree(testCase.angle).angleDegrees().toFixed(2), `Case '${testCase.name}' failed`);
+
+        });
+      });
+
     });
   });
 });
