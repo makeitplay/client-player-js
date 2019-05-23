@@ -77,6 +77,69 @@ describe('Vector', function () {
 
           });
       });
+
+      it('should add', function () {
+        const testMap = [
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(10, 0), expected: new ph.vector.Vector(10, 0), name: "only X"},
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(0, 10), expected: new ph.vector.Vector(0, 10), name: "only Y"},
+
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(3, 4), expected: new ph.vector.Vector(3, 4), name: "towards northwest"},
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(-3, 4), expected: new ph.vector.Vector(-3, 4), name: "towards northeast"},
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(-3, -4), expected: new ph.vector.Vector(-3, -4), name: "towards southeast"},
+          {a: new ph.vector.Vector(0, 0), b: new ph.vector.Vector(3, -4), expected: new ph.vector.Vector(3, -4), name: "towards southwest"},
+        ];
+
+        testMap.forEach(function (testCase) {
+          let pointA =  testCase.a.copy();
+          let pointB = testCase.b.copy();
+
+          assert.ok(ph.vector.NewVector(testCase.a, testCase.b.isValid()), `Case ${testCase.name} is not valid!`);
+
+          assert.strictEqual(testCase.expected.toString(), pointA.add(testCase.b).toString(), `Case '${testCase.name}' failed`);
+          assert.strictEqual(testCase.expected.toString(), pointB.add(testCase.a).toString(), `Case '${testCase.name}' failed reverse`);
+
+          //the same value should be found moving all X coords or Y coords
+          pointA =  testCase.a.copy();
+          let expectedCopy = testCase.expected.copy();
+          pointA.x += 10.5;
+          // testCase.b.x += 10.5;
+          expectedCopy.x += 10.5;
+
+
+          assert.strictEqual(expectedCopy.toString(), pointA.add(testCase.b).toString(), `Case '${testCase.name}' failed (moving X)`);
+
+          pointA =  testCase.a.copy();
+          pointA.y += 10.5;
+          // testCase.b.y += 10.5;
+          testCase.expected.y += 10.5;
+          assert.strictEqual(testCase.expected.toString(), pointA.add(testCase.b).toString(), `Case '${testCase.name}' failed (moving y)`)
+
+        });
+      });
+
+      it('should retrieve perpendicular', function () {
+
+        const testMap = [
+          {original: new ph.vector.Vector(10, 0), expected_right: new ph.vector.Vector(0, -10), expected_left: new ph.vector.Vector(0, 10), name: "with zero"},
+
+          {original: new ph.vector.Vector(-5, -5), expected_right: new ph.vector.Vector(-5, 5), expected_left: new ph.vector.Vector(5, -5), name: "negative values"},
+          {original: new ph.vector.Vector(2, -5), expected_right: new ph.vector.Vector(-5, -2), expected_left: new ph.vector.Vector(5, 2), name: "one negative value"},
+
+          {original: ph.vector.NORTH, expected_right: ph.vector.EAST, expected_left: ph.vector.WEST, name: "north"},
+          {original: ph.vector.SOUTH, expected_right: ph.vector.WEST, expected_left: ph.vector.EAST, name: "south"},
+          {original: ph.vector.EAST, expected_right: ph.vector.SOUTH, expected_left: ph.vector.NORTH, name: "east"},
+          {original: ph.vector.WEST, expected_right: ph.vector.NORTH, expected_left: ph.vector.SOUTH, name: "west"},
+
+        ];
+
+        testMap.forEach(function (testCase) {
+          assert.ok(testCase.original.isValid(), `Case ${testCase.name} is not valid!`);
+          assert.strictEqual(testCase.expected_right.toString(),testCase.original.perpendicular().toString(), `Case '${testCase.name}' failed to right`);
+          assert.strictEqual(testCase.expected_left.toString(),testCase.original.perpendicular(false).toString(), `Case '${testCase.name}' failed to left`);
+
+        });
+      });
+
     });
   });
 });

@@ -30,6 +30,9 @@ class Point {
     return Math.hypot(catA, catO)
   }
 
+  copy() {
+    return new Point(this.x ,this.y);
+  }
 
   /**
    *
