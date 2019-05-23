@@ -111,6 +111,30 @@ class Vector {
     return this
   }
 
+  IsEqualTo(b) {
+    return b.y === this.y && b.x === this.x;
+  }
+
+  /**
+   * Returns the angle of B from A.
+   *
+   * Assuming that A is the axis X of the plan, the angle returned is the diff of the angle of B.
+   *
+   * example:
+   * A: 30 degrees
+   * B: 45 degrees
+   * Returns: 15 degrees
+   *
+   * @param {Vector} b
+   * @return {number}
+   */
+  angleWith(b) {
+    const myAngle = this.angleDegrees();
+    let copyB = b.copy();
+    copyB.addAngleDegree(-myAngle);
+    return copyB.angleDegrees();
+  }
+
   toString() {
     return JSON.stringify(this);
   }

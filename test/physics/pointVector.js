@@ -208,6 +208,38 @@ describe('Vector', function () {
         });
       });
 
+
+      it('should find angle between vector', function () {
+
+        const northeast = new ph.vector.Vector(1, 1);
+        const northwest = new ph.vector.Vector(-1, 1);
+        const southwest = new ph.vector.Vector(-1, -1);
+
+        const testMap = [
+          {a: ph.vector.NORTH, b: ph.vector.NORTH, expected: 0, name: "same angle"},
+          {a: ph.vector.SOUTH, b: ph.vector.NORTH, expected: 180, name: "north with south"},
+          {a: ph.vector.NORTH, b: ph.vector.EAST, expected: -90, name: "north with east"},
+          {a: ph.vector.NORTH, b: ph.vector.WEST, expected: 90, name: "north with west"},
+
+          {a: northeast, b: northeast, expected: 0, name: "northeast with northeast"},
+          {a: northeast, b: northwest, expected: 90, name: "northeast with northwest"},
+          {a: ph.vector.NORTH, b: northeast, expected: -45, name: "north with northwest"},
+          {a: ph.vector.NORTH, b: southwest, expected: 135, name: "north with southwest"},
+
+
+        ];
+        testMap.forEach(function (testCase) {
+          assert.ok(testCase.a.isValid(), `Case ${testCase.name} A is not valid!`);
+          assert.ok(testCase.b.isValid(), `Case ${testCase.name} B is not valid!`);
+          assert.strictEqual(testCase.expected.toFixed(2), testCase.a.angleWith(testCase.b).toFixed(2), `Case '${testCase.name}' failed`);
+
+        });
+      });
+
+
+
+
+
     });
   });
 });
