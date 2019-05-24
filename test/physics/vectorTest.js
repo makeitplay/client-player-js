@@ -236,6 +236,26 @@ describe('Vector', function () {
         });
       });
 
+      it('should change its size', function () {
+
+
+        const testMap = [
+          {original: new ph.vector.Vector(1, 1), initial: 1.41, final: 10, name: "simple"},
+          {original: new ph.vector.Vector(5, 0), initial: 5, final: 10, name: "only X"},
+          {original: new ph.vector.Vector(0, -15), initial: 15, final: 10, name: "only Y"},
+          {original: new ph.vector.Vector(0, -15), initial: 15, final: 50, name: "only Y negative"},
+
+        ];
+        testMap.forEach(function (testCase) {
+          assert.ok(testCase.original.isValid(), `Case ${testCase.name} is not valid!`);
+
+
+          assert.strictEqual(testCase.initial.toFixed(2), testCase.original.length().toFixed(2), `Case '${testCase.name}' initial`);
+          assert.strictEqual(testCase.final.toFixed(2), testCase.original.setLength(testCase.final).length().toFixed(2), `Case '${testCase.name}' failed after set`);
+
+        });
+      });
+
 
 
 

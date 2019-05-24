@@ -73,6 +73,11 @@ class Vector {
     return this;
   }
 
+  setLength(length)  {
+    this.scale(length / this.length());
+    return this;
+  }
+
   scale(size) {
     this.x *= size;
     this.y *= size;
